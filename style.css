@@ -210,7 +210,7 @@ header {
   background-color: var(--white);
 }
 
-#quantity {
+.quantity {
   background-color: var(--white);
   border: 1px solid var(--main-color);
   border-radius: 5px;
