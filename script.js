@@ -72,10 +72,11 @@ function addItemToCart(name, image, price) {
   var cartItemsContainer = document.getElementsByClassName(
     "cart-items-container"
   )[0];
-  var cartItemsNames = cartItemsContainer.getElementsByClassName("item-name");
+  var cartItemsNames =
+    cartItemsContainer.getElementsByClassName("cart-item-name");
   for (i = 0; i < cartItemsNames.length; i++) {
     if (cartItemsNames[i].innerText == name) {
-      alert("You have already added this item to your cart");
+      alert("You have already added this item to your cart!");
       return;
     }
   }
@@ -83,10 +84,10 @@ function addItemToCart(name, image, price) {
             <span class="fas fa-times close"></span>
             <img src="${image}" alt="item-1" />
             <div class="content">
-              <h3>${name}</h3>
+              <h3 class="cart-item-name">${name}</h3>
               <div class="detail-container">
                 <div class="prices">${price}</div>
-                <input type="number" class="quantity" min="1" />
+                <input type="number" class="quantity" value="1" min="1" />
               </div>
             </div>
           `;
@@ -116,16 +117,20 @@ function updateTotalPrice() {
   )[0];
   var cartItems = cartItemsContainer.getElementsByClassName("cart-item");
   var total = 0;
-  for (i = 0; i < cartItems.length; i++) {
-    var cartItem = cartItems[i];
-    var priceElement = cartItem.getElementsByClassName("prices")[0];
-    var quantityElement = cartItem.getElementsByClassName("quantity")[0];
-    var price = parseFloat(priceElement.innerText);
-    var quantity = quantityElement.value;
-    total = total + quantity * price;
-    total = Math.round(total * 100) / 100;
-    document.getElementsByClassName("total-price")[0].innerText = "$" + total;
+  if (cartItems.length == 0) {
+    total = 0;
+  } else {
+    for (i = 0; i < cartItems.length; i++) {
+      var cartItem = cartItems[i];
+      var priceElement = cartItem.getElementsByClassName("prices")[0];
+      var quantityElement = cartItem.getElementsByClassName("quantity")[0];
+      var price = parseFloat(priceElement.innerText);
+      var quantity = quantityElement.value;
+      total = total + quantity * price;
+      total = Math.round(total * 100) / 100;
+    }
   }
+  document.getElementsByClassName("total-price")[0].innerText = total;
 }
 
 //Change quantity
@@ -139,4 +144,21 @@ for (i = 0; i < quantityInputs.length; i++) {
 function quantityChanged(event) {
   var input = event.target;
   updateTotalPrice();
+}
+
+//Checkout
+
+var checkoutButton = document.getElementsByClassName("checkout-btn")[0];
+checkoutButton.addEventListener("click", doCheckout);
+
+function doCheckout(event) {
+  var button = event.target;
+  var cartContainer = button.parentElement;
+  var cartItemsContainer = cartContainer.getElementsByClassName(
+    "cart-items-container"
+  )[0];
+  var cartItems = cartItemsContainer.getElementsByClassName("cart-item")[0];
+  cartItems.parentElement.remove();
+  alert("Your purchase is completed!");
+  document.getElementsByClassName("total-price")[0].innerText = 0;
 }

@@ -156,6 +156,7 @@ header {
   padding: 0 1.5rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .cart-container.active {
@@ -239,11 +240,17 @@ header {
   transform: scale(1.08);
 }
 
-.cart-container .total-price {
+.cart-container .total {
   background-color: var(--white);
   color: var(--bg);
   font-size: 1.2rem;
+  margin: 1rem;
 }
+
+.cart-container .total-price {
+  background-color: var(--white);
+}
+
 
 .cart-container .checkout-btn {
   width: 100%;
