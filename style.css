@@ -146,7 +146,7 @@ header {
   color: var(--main-color);
 }
 
-.cart-items-container {
+.cart-container {
   position: absolute;
   top: 100%;
   right: -100%;
@@ -158,8 +158,12 @@ header {
   flex-direction: column;
 }
 
-.cart-items-container.active {
+.cart-container.active {
   right: 0;
+}
+
+.cart-items-container {
+  background-color: var(--white);
 }
 
 .cart-items-container .cart-item {
@@ -232,6 +236,27 @@ header {
 }
 
 .cart-items-container .cart-btn:hover {
+  transform: scale(1.08);
+}
+
+.cart-container .total-price {
+  background-color: var(--white);
+  color: var(--bg);
+  font-size: 1.2rem;
+}
+
+.cart-container .checkout-btn {
+  width: 100%;
+  height: 2.7rem;
+  text-align: center;
+  background-color: var(--main-color);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 1.2rem;
+  align-self: center;
+}
+
+.cart-container .checkout-btn:hover {
   transform: scale(1.08);
 }
 
