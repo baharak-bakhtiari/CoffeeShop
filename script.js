@@ -14,7 +14,7 @@ document.querySelector("#search-btn").onclick = () => {
   cartItem.classList.remove("active");
 };
 
-let cartItem = document.querySelector(".cart-items-container");
+let cartItem = document.querySelector(".cart-container");
 
 document.querySelector("#cart-btn").onclick = () => {
   cartItem.classList.toggle("active");
@@ -28,18 +28,38 @@ window.onscroll = () => {
   cartItem.classList.remove("active");
 };
 
-//add to cart
+//Cart working JS
 
-const addToCart = document.getElementsByClassName("add-to-cart");
-for (i = 0; i < addToCart.length; i++) {
-  var addButton = addToCart[i];
-  addButton.addEventListener("onclick", addToCartClicked);
+if (document.readyState == "loading") {
+  document.addEventListener("DOMContentLoaded", ready);
+} else {
+  ready();
 }
+
+function ready() {
+  //Remove Cart items
+  var removeItemButtons = document.getElementsByClassName("close");
+  for (i = 0; i < removeItemButtons.length; i++) {
+    var removeButton = removeItemButtons[i];
+    removeButton.addEventListener("click", removeCartItem);
+  }
+
+  //add to cart
+
+  var addToCart = document.getElementsByClassName("add-to-cart");
+  for (var i = 0; i < addToCart.length; i++) {
+    var addButton = addToCart[i];
+    addButton.addEventListener("click", addToCartClicked);
+  }
+}
+
+//add to cart
 
 function addToCartClicked(event) {
   var button = event.target;
   var cartItem = button.parentElement;
-  var price = cartItem.getElementsByClassName("price")[0].innerText;
+  var priceElement = cartItem.getElementsByClassName("price")[0].innerText;
+  var price = parseFloat(priceElement.replace("$", ""));
   var name = cartItem.getElementsByClassName("item-name")[0].innerText;
   var image = cartItem.getElementsByClassName("item-image")[0].src;
   addItemToCart(name, image, price);
@@ -50,12 +70,13 @@ function addItemToCart(name, image, price) {
   var cartItemBox = document.createElement("div");
   cartItemBox.classList.add("cart-item");
   var cartItemsContainer = document.getElementsByClassName(
-    "cart - items - container"
+    "cart-items-container"
   )[0];
-  var cartItemsNames = cartItemsContainer.getElementsByClassName("item-name");
+  var cartItemsNames =
+    cartItemsContainer.getElementsByClassName("cart-item-name");
   for (i = 0; i < cartItemsNames.length; i++) {
     if (cartItemsNames[i].innerText == name) {
-      alert("You have already added this item to your cart");
+      alert("You have already added this item to your cart!");
       return;
     }
   }
@@ -63,10 +84,10 @@ function addItemToCart(name, image, price) {
             <span class="fas fa-times close"></span>
             <img src="${image}" alt="item-1" />
             <div class="content">
-              <h3>${name}</h3>
+              <h3 class="cart-item-name">${name}</h3>
               <div class="detail-container">
                 <div class="prices">${price}</div>
-                <input type="number" class="quantity" min="1" />
+                <input type="number" class="quantity" value="1" min="1" />
               </div>
             </div>
           `;
@@ -74,8 +95,70 @@ function addItemToCart(name, image, price) {
   cartItemsContainer.append(cartItemBox);
   cartItemBox
     .getElementsByClassName("close")[0]
-    .addEventListener(onclick, removeCartItenm);
+    .addEventListener("click", removeCartItem);
   cartItemBox
-    .getElementsByClassName("quantity")
-    .addEventListener(onclick, quantityChanged);
+    .getElementsByClassName("quantity")[0]
+    .addEventListener("change", quantityChanged);
+}
+
+//Remove Cart items
+
+function removeCartItem(event) {
+  var button = event.target;
+  button.parentElement.remove();
+  updateTotalPrice();
+}
+
+//Update total
+
+function updateTotalPrice() {
+  var cartItemsContainer = document.getElementsByClassName(
+    "cart-items-container"
+  )[0];
+  var cartItems = cartItemsContainer.getElementsByClassName("cart-item");
+  var total = 0;
+  if (cartItems.length == 0) {
+    total = 0;
+  } else {
+    for (i = 0; i < cartItems.length; i++) {
+      var cartItem = cartItems[i];
+      var priceElement = cartItem.getElementsByClassName("prices")[0];
+      var quantityElement = cartItem.getElementsByClassName("quantity")[0];
+      var price = parseFloat(priceElement.innerText);
+      var quantity = quantityElement.value;
+      total = total + quantity * price;
+      total = Math.round(total * 100) / 100;
+    }
+  }
+  document.getElementsByClassName("total-price")[0].innerText = total;
+}
+
+//Change quantity
+
+var quantityInputs = document.getElementsByClassName("quantity");
+for (i = 0; i < quantityInputs.length; i++) {
+  var input = quantityInputs[i];
+  input.addEventListener("change", quantityChanged);
+}
+
+function quantityChanged(event) {
+  var input = event.target;
+  updateTotalPrice();
+}
+
+//Checkout
+
+var checkoutButton = document.getElementsByClassName("checkout-btn")[0];
+checkoutButton.addEventListener("click", doCheckout);
+
+function doCheckout(event) {
+  var button = event.target;
+  var cartContainer = button.parentElement;
+  var cartItemsContainer = cartContainer.getElementsByClassName(
+    "cart-items-container"
+  )[0];
+  var cartItems = cartItemsContainer.getElementsByClassName("cart-item")[0];
+  cartItems.parentElement.remove();
+  alert("Your purchase is completed!");
+  document.getElementsByClassName("total-price")[0].innerText = 0;
 }
