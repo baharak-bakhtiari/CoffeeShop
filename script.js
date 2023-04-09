@@ -104,7 +104,7 @@ function addItemToCart(name, image, price) {
   }
   var cartItemBoxContent = `
             <span class="fas fa-times close"></span>
-            <img src="${image}" alt="item-1" />
+            <img src="${image}" alt="item-1" class="cart-item-image"/>
             <div class="content">
               <h3 class="cart-item-name">${name}</h3>
               <div class="detail-container">
@@ -179,7 +179,37 @@ function doCheckout(event) {
   var cartItemsContainer = cartContainer.getElementsByClassName(
     "cart-items-container"
   )[0];
-  cartItemsContainer.innerHTML = null;
+  //cartItemsContainer.innerHTML = null;
   alert("Your purchase is completed!");
   document.getElementsByClassName("total-price")[0].innerText = 0;
+
+  //save purchase in sessionStorage
+
+  const cartData = [];
+
+  var cartItems = cartItemsContainer.getElementsByClassName("cart-item");
+  const cartItemsArray = [...cartItems];
+  console.log(cartItemsArray);
+  cartItemsArray.forEach((item) => {
+    const name = item.querySelector(".cart-item-name").textContent;
+    const price = parseFloat(item.querySelector(".prices").textContent);
+    const img = parseInt(item.querySelector(".cart-item-image").src);
+    const quantity = parseInt(item.querySelector(".quantity").value);
+
+    const itemData = {
+      name: name,
+      price: price,
+      img: img,
+      quantity: quantity,
+    };
+    cartData.push(itemData);
+  });
+
+  console.log(cartData);
+  sessionStorage.setItem("cartItems", JSON.stringify(cartData));
+  const storedCartItems = JSON.parse(sessionStorage.getItem("cartItems"));
+  console.log(storedCartItems);
+  storedCartItems.forEach((item) => {
+    console.log(item.name);
+  });
 }
