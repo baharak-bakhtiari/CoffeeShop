@@ -186,10 +186,31 @@ function doCheckout(event) {
   cartItemsContainer.innerHTML = null;
   alert("Your purchase is completed!");
   document.getElementsByClassName("total-price")[0].innerText = 0;
+
+  creatHistoryButton();
 }
 
+//History button
+
+function creatHistoryButton() {
+  var historyButton = document.createElement("button");
+  historyButton.classList.add("history-btn");
+  var cartContainer = document.getElementsByClassName("cart-container")[0];
+  var historyButtonContent = `
+            show purchase</button>
+          `;
+  historyButton.innerHTML = historyButtonContent;
+  cartContainer.append(historyButton);
+  checkoutButton.classList.remove("checkout-btn");
+  checkoutButton.classList.add("checkout-btn-hidden");
+  historyButton.addEventListener("click", function () {
+    window.location.href = "purchase-History.html";
+  });
+}
+
+//save purchase in sessionStorage
+
 function savePurchaseHistory(allItems) {
-  //save purchase in sessionStorage
   const cartData = [];
 
   var cartItems = allItems.getElementsByClassName("cart-item");
@@ -211,11 +232,22 @@ function savePurchaseHistory(allItems) {
 
   sessionStorage.setItem("cartItems", JSON.stringify(cartData));
   const storedCartItems = JSON.parse(sessionStorage.getItem("cartItems"));
-  displayPurchaseHistory(storedCartItems);
+  //displayPurchaseHistory(storedCartItems);
 }
 
-function displayPurchaseHistory(items) {
-  items.forEach((item) => {
-    console.log(item.name);
-  });
-}
+//display purchase history table
+
+// function displayPurchaseHistory(items) {
+//   const historyTable = document.getElementsByClassName("history-table");
+//   console.log(historyTable);
+//   items.forEach((item) => {
+//     const newRow = historyTable.insertRow();
+//     const nameCell = newRow.insertCell();
+//     const priceCell = newRow.insertCell();
+//     const quantityCell = newRow.insertCell();
+
+//     nameCell.textContent = item.name;
+//     priceCell.textContent = item.price;
+//     quantityCell.textContent = item.quantity;
+//   });
+// }

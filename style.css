@@ -251,8 +251,22 @@ header {
   background-color: var(--white);
 }
 
-
 .cart-container .checkout-btn {
+  width: 100%;
+  height: 2.7rem;
+  text-align: center;
+  background-color: var(--main-color);
+  border-radius: 10px;
+  color: var(--white);
+  font-size: 1.2rem;
+  align-self: center;
+}
+
+.checkout-btn-hidden {
+  display: none;
+}
+
+.cart-container .history-btn {
   width: 100%;
   height: 2.7rem;
   text-align: center;
@@ -960,6 +974,34 @@ footer {
 }
 
 /*end of footer*/
+
+/*Purchase history page*/
+
+.history-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  width: 80%;
+  background-color: var(--bg);
+  opacity: 0.5;
+  border-radius: 10px;
+}
+
+.table-container {
+  background-color: var(--black);
+}
+
+.history-table {
+  background-color: var(--black);
+}
+
+.history-table thead {
+  color: var(--white);
+}
+
+/*end of Purchase history*/
+
 /* media queries  */
 
 @media (max-width: 991px) {
