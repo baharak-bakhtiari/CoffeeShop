@@ -203,8 +203,8 @@ function creatHistoryButton() {
   cartContainer.append(historyButton);
   checkoutButton.classList.remove("checkout-btn");
   checkoutButton.classList.add("checkout-btn-hidden");
-  historyButton.addEventListener("click", function () {
-    window.location.href = "purchase-History.html";
+  historyButton.addEventListener("click", function openPurchaseHistory() {
+    window.open("purchase-History.html");
   });
 }
 
@@ -231,23 +231,4 @@ function savePurchaseHistory(allItems) {
   });
 
   sessionStorage.setItem("cartItems", JSON.stringify(cartData));
-  const storedCartItems = JSON.parse(sessionStorage.getItem("cartItems"));
-  //displayPurchaseHistory(storedCartItems);
 }
-
-//display purchase history table
-
-// function displayPurchaseHistory(items) {
-//   const historyTable = document.getElementsByClassName("history-table");
-//   console.log(historyTable);
-//   items.forEach((item) => {
-//     const newRow = historyTable.insertRow();
-//     const nameCell = newRow.insertCell();
-//     const priceCell = newRow.insertCell();
-//     const quantityCell = newRow.insertCell();
-
-//     nameCell.textContent = item.name;
-//     priceCell.textContent = item.price;
-//     quantityCell.textContent = item.quantity;
-//   });
-// }
