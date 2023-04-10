@@ -179,17 +179,21 @@ function doCheckout(event) {
   var cartItemsContainer = cartContainer.getElementsByClassName(
     "cart-items-container"
   )[0];
-  //cartItemsContainer.innerHTML = null;
+
+  savePurchaseHistory(cartItemsContainer);
+
+  //empty the cart
+  cartItemsContainer.innerHTML = null;
   alert("Your purchase is completed!");
   document.getElementsByClassName("total-price")[0].innerText = 0;
+}
 
+function savePurchaseHistory(allItems) {
   //save purchase in sessionStorage
-
   const cartData = [];
 
-  var cartItems = cartItemsContainer.getElementsByClassName("cart-item");
+  var cartItems = allItems.getElementsByClassName("cart-item");
   const cartItemsArray = [...cartItems];
-  console.log(cartItemsArray);
   cartItemsArray.forEach((item) => {
     const name = item.querySelector(".cart-item-name").textContent;
     const price = parseFloat(item.querySelector(".prices").textContent);
@@ -205,11 +209,13 @@ function doCheckout(event) {
     cartData.push(itemData);
   });
 
-  console.log(cartData);
   sessionStorage.setItem("cartItems", JSON.stringify(cartData));
   const storedCartItems = JSON.parse(sessionStorage.getItem("cartItems"));
-  console.log(storedCartItems);
-  storedCartItems.forEach((item) => {
+  displayPurchaseHistory(storedCartItems);
+}
+
+function displayPurchaseHistory(items) {
+  items.forEach((item) => {
     console.log(item.name);
   });
 }
