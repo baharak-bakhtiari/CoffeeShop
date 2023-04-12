@@ -11,7 +11,7 @@ function displayPurchaseHistory() {
     const quantityCell = newRow.insertCell();
 
     nameCell.textContent = item.name;
-    priceCell.textContent = item.price;
+    priceCell.textContent = "$" + item.price;
     quantityCell.textContent = item.quantity;
   });
 }
