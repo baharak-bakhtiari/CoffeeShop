@@ -73,6 +73,7 @@ function addProductToCartClicked(event) {
   var price = parseFloat(priceElement.replace("$", ""));
   var name = cartItem.getElementsByClassName("product-name")[0].innerText;
   var image = cartItem.getElementsByClassName("product-image")[0].src;
+  alert("DONE!");
   addItemToCart(name, image, price);
   updateTotalPrice();
 }
@@ -86,6 +87,7 @@ function addToCartClicked(event) {
   var price = parseFloat(priceElement.replace("$", ""));
   var name = cartItem.getElementsByClassName("item-name")[0].innerText;
   var image = cartItem.getElementsByClassName("item-image")[0].src;
+  alert("DONE!");
   addItemToCart(name, image, price);
   updateTotalPrice();
 }
