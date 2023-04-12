@@ -134,6 +134,10 @@ header {
   border-radius: 10px;
 }
 
+.quantity {
+  padding-left: 0.3rem;
+}
+
 .search-form label {
   background-color: var(--white);
   cursor: pointer;
@@ -998,8 +1002,8 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4rem;
-  width: 80%;
+  padding: 2rem;
+  width: fit-content;
   background-color: var(--bg);
   opacity: 0.7;
   border-radius: 20px;
