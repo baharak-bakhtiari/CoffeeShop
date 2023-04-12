@@ -1,4 +1,4 @@
-let navbar = document.querySelector(".navbar");
+const navbar = document.querySelector(".navbar");
 
 document.querySelector("#hamburger-menu").onclick = () => {
   navbar.classList.toggle("active");
@@ -6,7 +6,7 @@ document.querySelector("#hamburger-menu").onclick = () => {
   cartItem.classList.remove("active");
 };
 
-let searchForm = document.querySelector(".search-form");
+const searchForm = document.querySelector(".search-form");
 
 document.querySelector("#search-btn").onclick = () => {
   searchForm.classList.toggle("active");
@@ -14,7 +14,7 @@ document.querySelector("#search-btn").onclick = () => {
   cartItem.classList.remove("active");
 };
 
-let cartItem = document.querySelector(".cart-container");
+const cartItem = document.querySelector(".cart-container");
 
 document.querySelector("#cart-btn").onclick = () => {
   cartItem.classList.toggle("active");
@@ -38,7 +38,7 @@ if (document.readyState == "loading") {
 
 function ready() {
   //Remove Cart items
-  var removeItemButtons = document.getElementsByClassName("close");
+  const removeItemButtons = document.getElementsByClassName("close");
   for (i = 0; i < removeItemButtons.length; i++) {
     var removeButton = removeItemButtons[i];
     removeButton.addEventListener("click", removeCartItem);
@@ -46,7 +46,7 @@ function ready() {
 
   //add to cart, menu
 
-  var addToCart = document.getElementsByClassName("add-to-cart");
+  const addToCart = document.getElementsByClassName("add-to-cart");
   for (var i = 0; i < addToCart.length; i++) {
     var addButton = addToCart[i];
     addButton.addEventListener("click", addToCartClicked);
@@ -54,9 +54,11 @@ function ready() {
 
   //add to cart, products
 
-  var addToCart = document.getElementsByClassName("add-product-to-cart");
-  for (var i = 0; i < addToCart.length; i++) {
-    var addButton = addToCart[i];
+  const addToCartProduct = document.getElementsByClassName(
+    "add-product-to-cart"
+  );
+  for (var i = 0; i < addToCartProduct.length; i++) {
+    var addButton = addToCartProduct[i];
     addButton.addEventListener("click", addProductToCartClicked);
   }
 }
@@ -89,7 +91,7 @@ function addToCartClicked(event) {
 }
 
 function addItemToCart(name, image, price) {
-  var cartItemBox = document.createElement("div");
+  const cartItemBox = document.createElement("div");
   cartItemBox.classList.add("cart-item");
   var cartItemsContainer = document.getElementsByClassName(
     "cart-items-container"
@@ -134,7 +136,7 @@ function removeCartItem(event) {
 //Update total
 
 function updateTotalPrice() {
-  var cartItemsContainer = document.getElementsByClassName(
+  const cartItemsContainer = document.getElementsByClassName(
     "cart-items-container"
   )[0];
   var cartItems = cartItemsContainer.getElementsByClassName("cart-item");
@@ -157,7 +159,7 @@ function updateTotalPrice() {
 
 //Change quantity
 
-var quantityInputs = document.getElementsByClassName("quantity");
+const quantityInputs = document.getElementsByClassName("quantity");
 for (i = 0; i < quantityInputs.length; i++) {
   var input = quantityInputs[i];
   input.addEventListener("change", quantityChanged);
@@ -170,7 +172,7 @@ function quantityChanged(event) {
 
 //Checkout
 
-var checkoutButton = document.getElementsByClassName("checkout-btn")[0];
+const checkoutButton = document.getElementsByClassName("checkout-btn")[0];
 checkoutButton.addEventListener("click", doCheckout);
 
 function doCheckout(event) {

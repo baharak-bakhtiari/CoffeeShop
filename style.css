@@ -998,7 +998,6 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
   padding: 4rem;
   width: 80%;
   background-color: var(--bg);
